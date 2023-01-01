@@ -145,9 +145,8 @@ public class BJ_G2_17136 {
 		for (int i = 1; i <= 5; i++) {
 			_paperCnt[i] = 5;
 		}
-		
-		Point polled = _locations.
-		recur(0, 0); // 붙일 수 있는 모든 경우의 수 계산
+
+//		Point polled = _locations.recur(0, 0); // 붙일 수 있는 모든 경우의 수 계산
 
 		if (_answer == Integer.MAX_VALUE) {
 			output.append(-1);
