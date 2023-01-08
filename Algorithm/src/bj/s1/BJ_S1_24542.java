@@ -61,7 +61,7 @@ public class BJ_S1_24542 {
 		_answer = 1;
 		for (int i = 1; i <= _n; i++) {
 			// 연결된 node가 있고, 방문한 적이 없으면,
-			if (!_relations[i].isEmpty()) {
+			if (_relations[i].size() != 0) {
 				if (!_visited[i]) {
 					_cnt = 0;
 					dfs(i);
