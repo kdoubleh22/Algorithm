@@ -2,9 +2,6 @@ package bj.g5;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 /*
@@ -17,8 +14,7 @@ import java.util.StringTokenizer;
  * 반전으로 만들 수 있는 수의 개수.
  * -풀이
  * 각 숫자마다 몇 번의 반전으로 다른 숫자를 만들 수 있는지 테이블을 만들어놓고. 숫자는 1이상 N이하.
- * 개수가 P이히가 되도록 부분집합.
- * 합, N으로 백트래킹. *N이하*
+ * 반전개수로 백트래킹. *N이하*
  */
 
 public class BJ_G5_22251 {
@@ -34,8 +30,8 @@ public class BJ_G5_22251 {
 	static int _n, _k, _p, _x;
 	static int[][] _flipCnt;
 	static int _answer;
-	static Set<Integer> _answerSet;
 
+	// x를 y로 바꾸려면 몇 개를 flip해야 하는지.
 	static int findFlipCnt(int x, int y) {
 		int result = 0;
 
@@ -48,6 +44,7 @@ public class BJ_G5_22251 {
 		return result;
 	}
 
+	// int[] result를 int로 바꿔줌.
 	static int resultToNum(int[] result) {
 		int n = 0;
 		int digit = 1;
@@ -60,37 +57,28 @@ public class BJ_G5_22251 {
 		return n;
 	}
 
-	// digit: 앞에서부터 몇 번째 숫자인지, pNum은 flip한 개수, result는 뽑은 결과값.
+	// digit: 앞에서부터 몇 번째 숫자인지, fCnt은 flip한 개수, result는 뽑은 결과값.
 	static void recur(int digit, int fCnt, int[] result) {
 
-		// 백트래킹 - 반전시킨 개수가 P보다 크거나, 숫자가 N 이상이면 return.
-		if (fCnt > _p || resultToNum(result) > _n) {
+		// 백트래킹 - 반전시킨 개수가 P보다 크면 return.
+		if (fCnt > _p) {
 			return;
 		}
 
 		// 종료 조건. _k개를 무사히 뽑았으면 _answer+=1.
 		if (digit == _k) {
-//			System.out.println("digit:" + digit + " fCnt:" + fCnt + " result:" + Arrays.toString(result));
-			if (fCnt > 0 && resultToNum(result)!=0) {
-				_answerSet.add(resultToNum(result));
+			// 1개라도 바꿨고, 1 <= 층 <= N.
+			if (fCnt > 0 && resultToNum(result) >= 1 && resultToNum(result) <= _n) {
+				_answer += 1;
 			}
-//			_answer += 1;
 			return;
 		}
 
-		// 고르고
 		for (int i = 0; i < 10; i++) {
-			// 자기 자신이 아니면,
-//			if (_flipCnt[result[digit]][i] != 0) {
-				// 고른 경우.
-				int temp = result[digit]; // 돌려놓기 위해 temp에 잠시 저장.
-				result[digit] = i; // 숫자를 바궈주고,
-				recur(digit + 1, fCnt + _flipCnt[temp][i], result);
-				result[digit] = temp; // 돌려놓음.
-
-				// 안 고른경우
-				recur(digit + 1, fCnt, result);
-//			}
+			int temp = result[digit]; // 돌려놓기 위해 temp에 잠시 저장.
+			result[digit] = i; // 숫자를 바꿔주고,
+			recur(digit + 1, fCnt + _flipCnt[temp][i], result);
+			result[digit] = temp; // 돌려놓음.
 		}
 
 	}
@@ -102,7 +90,7 @@ public class BJ_G5_22251 {
 		_p = Integer.parseInt(tokens.nextToken());
 		_x = Integer.parseInt(tokens.nextToken());
 
-		// 전처리
+		// _flipCnt에 숫자 i를 숫자 j로 바꾸기 위해 몇 개를 flip해야하는지 저장.
 		_flipCnt = new int[10][10];
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -115,9 +103,9 @@ public class BJ_G5_22251 {
 //			System.out.println(Arrays.toString(row));
 //		}
 
-		// 부분집합
 		_answer = 0;
 
+		// result는 청므에 현재 층(X)로 초기화.
 		int[] result = new int[_k]; // k자리수.
 		int idx = _k - 1;
 		while (_x > 0) {
@@ -125,14 +113,12 @@ public class BJ_G5_22251 {
 			_x /= 10;
 		}
 
-//		// 입력 확인.
+		// 입력 확인.
 //		System.out.println(Arrays.toString(result));
 
-		_answerSet = new HashSet<>();
 		recur(0, 0, result);
 
-//		System.out.println(_answerSet);
-		System.out.println(_answerSet.size());
+		System.out.println(_answer);
 
 	}
 
