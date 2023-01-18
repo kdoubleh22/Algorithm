@@ -64,14 +64,14 @@ public class BJ_G5_22251 {
 	static void recur(int digit, int fCnt, int[] result) {
 
 		// 백트래킹 - 반전시킨 개수가 P보다 크거나, 숫자가 N 이상이면 return.
-		if (fCnt > _p || resultToNum(result) > _n || resultToNum(result) == 0) {
+		if (fCnt > _p || resultToNum(result) > _n) {
 			return;
 		}
 
 		// 종료 조건. _k개를 무사히 뽑았으면 _answer+=1.
 		if (digit == _k) {
-			System.out.println("digit:" + digit + " fCnt:" + fCnt + " result:" + Arrays.toString(result));
-			if (fCnt > 0) {
+//			System.out.println("digit:" + digit + " fCnt:" + fCnt + " result:" + Arrays.toString(result));
+			if (fCnt > 0 && resultToNum(result)!=0) {
 				_answerSet.add(resultToNum(result));
 			}
 //			_answer += 1;
@@ -81,21 +81,17 @@ public class BJ_G5_22251 {
 		// 고르고
 		for (int i = 0; i < 10; i++) {
 			// 자기 자신이 아니면,
-			if (_flipCnt[result[digit]][i] != 0) {
+//			if (_flipCnt[result[digit]][i] != 0) {
 				// 고른 경우.
 				int temp = result[digit]; // 돌려놓기 위해 temp에 잠시 저장.
 				result[digit] = i; // 숫자를 바궈주고,
-//				System.out.println("fCnt:" + fCnt);
-//				System.out.println("_flipCnt[result[digit]][i]:" + _flipCnt[result[digit]][i]);
-//				System.out.println("fCnt + _flipCnt[result[digit]][i]:"+ fCnt + _flipCnt[result[digit]][i]);
 				recur(digit + 1, fCnt + _flipCnt[temp][i], result);
 				result[digit] = temp; // 돌려놓음.
 
 				// 안 고른경우
 				recur(digit + 1, fCnt, result);
-			}
+//			}
 		}
-		// 안 고르고
 
 	}
 
@@ -114,7 +110,7 @@ public class BJ_G5_22251 {
 			}
 		}
 
-//		// 입력 확인.
+		// 입력 확인.
 //		for (int[] row : _flipCnt) {
 //			System.out.println(Arrays.toString(row));
 //		}
@@ -135,7 +131,7 @@ public class BJ_G5_22251 {
 		_answerSet = new HashSet<>();
 		recur(0, 0, result);
 
-		System.out.println(_answerSet);
+//		System.out.println(_answerSet);
 		System.out.println(_answerSet.size());
 
 	}
