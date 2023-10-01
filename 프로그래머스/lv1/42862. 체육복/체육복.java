@@ -11,8 +11,6 @@ class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
         int answer = n;
         
-        Arrays.sort(lost);
-        
         HashSet<Integer> hs = new HashSet<>();
         
         for(int r : reserve){
@@ -26,10 +24,21 @@ class Solution {
         }
         
         // 여벌 체육복을 가져온 학생이 체육복을 도난당함.
-        for(int l : lost){
-            if(hs.contains(l)){
-                hs.remove(l);
-                ts.remove(l);
+        // 1.
+        // for(int l : lost){
+        //     if(hs.contains(l)){
+        //         hs.remove(l);
+        //         ts.remove(l);
+        //     }
+        // }
+        
+        // 2.
+        for(Iterator<Integer> iterator = ts.iterator(); iterator.hasNext(); ){
+            int i = iterator.next();
+            
+            if(hs.contains(i)){
+                hs.remove(i);
+                iterator.remove();
             }
         }
         
