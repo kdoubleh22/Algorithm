@@ -10,7 +10,7 @@ class Solution {
     public long solution(int n, int[] times) {
         long answer = 0l;
         
-        long left = 1l;
+        long left = 0l;
         long right = 1000000000000000000l;
         while(left < right){
             long mid = (left + right) / 2;
