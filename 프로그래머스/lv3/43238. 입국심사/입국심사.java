@@ -10,9 +10,9 @@ class Solution {
     public long solution(int n, int[] times) {
         long answer = 0l;
         
-        long left = 0l;
-        long right = 1000000000000000000l;
-        while(left < right){
+        long left = 1l;
+        long right = (long) 1e18;
+        while(left <= right){
             long mid = (left + right) / 2;
             long res = quotientSum(mid, times);
             
@@ -21,10 +21,10 @@ class Solution {
                     answer = mid;
                     break;
                 }
-                right = mid;
+                right = mid - 1;
             }
             else if (res < n){
-                left = mid;
+                left = mid + 1;
             }
         }
         
