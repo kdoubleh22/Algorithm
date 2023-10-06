@@ -48,12 +48,12 @@ class Solution {
         int br = find(b);
         
         if(ar != br){
-            if(ar > br){
+            // if(ar < br){
                 _parent[ar]=br;
-            }
-            else{
-                _parent[br]=ar;
-            }
+            // }
+            // else{
+            //     _parent[br]=ar;
+            // }
         }
     }
     
