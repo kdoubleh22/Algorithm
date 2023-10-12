@@ -1,0 +1,12 @@
+-- 두번 이상 쓰인 이름 as name, 해당 이름이 쓰인 횟수 as count
+-- 이름이 없는 동물 제외
+-- 동물이름으로 그룹화
+-- 두번이상 쓰인(이름이 없는 동물은 집계에서 제외) -> count
+-- 이름순 오름차순?
+
+select name, count(name) as count
+from animal_ins
+# where name is not null 있어도 없어도 될듯. count는 null을 제외하니까?
+group by name
+having count(name) >= 2
+order by name
