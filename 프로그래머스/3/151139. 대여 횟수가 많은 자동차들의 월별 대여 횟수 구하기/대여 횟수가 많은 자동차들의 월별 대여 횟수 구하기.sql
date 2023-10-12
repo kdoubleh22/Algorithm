@@ -14,9 +14,9 @@ where car_id in (select car_id
                 and month(start_date) <= 10
                 group by car_id
                 having count(car_id) >= 5)
-and year(start_date) = 2022
+# and year(start_date) = 2022
 and month(start_date) >= 8
 and month(start_date) <= 10
 group by month(start_date), car_id
-# having count(*) != 0
+having count(*) > 0
 order by month, car_id desc
