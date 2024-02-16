@@ -1,18 +1,14 @@
 class Solution {
-    
-    int[] times;
-    
-    public long solution(int n, int[] mTimes) {
-        long answer = -1;
-        times = mTimes;
+    public long solution(int n, int[] times) {
+        long answer = 0;
         
         long left = 1;
-        long right = (long) 1e14;
+        long right = (long) 1e18;
         
         while (left <= right) {
             long mid = left + (right - left) / 2;
             
-            if (f(mid) >= n) {
+            if (f(mid, times) >= n) {
                 answer = mid;
                 right = mid - 1;
             } else {
@@ -23,7 +19,7 @@ class Solution {
         return answer;
     }
     
-    long f(long mid) {
+    long f(long mid, int[] times) {
         long ret = 0;
         
         for (int time : times) {
