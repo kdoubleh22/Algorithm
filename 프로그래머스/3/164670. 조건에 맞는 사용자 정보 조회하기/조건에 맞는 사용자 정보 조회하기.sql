@@ -1,13 +1,9 @@
-# select 사용자id,닉네임,전체주소,전화번호
-# from
-# group by 사용자 id
-# having 3건 이상 등록 count
-# order by 회원id 내림차순
-
-select user_id, nickname, concat(CITY,' ',STREET_ADDRESS1,' ',STREET_ADDRESS2) as 전체주소, concat(substring(TLNO,1,3),'-',substring(TLNO,4,4),'-',substring(TLNO,8,4)) as 전화번호
-from USED_GOODS_BOARD as a
-join USED_GOODS_USER as b
-on a.WRITER_ID = b.USER_ID
-group by USER_ID
-having count(USER_ID) >= 3
-order by user_id desc
+select user_id, nickname, concat(city,' ',STREET_ADDRESS1,' ',STREET_ADDRESS2) 전체주소,
+concat(substr(tlno,1,3),'-',substr(tlno,4,4),'-',substr(tlno,8,4)) 전화번호
+from USED_GOODS_USER
+where USER_ID in (select writer_id
+                  from USED_GOODS_BOARD
+                  group by writer_id
+                  having count(*) >= 3
+                 )
+order by user_id desc;
