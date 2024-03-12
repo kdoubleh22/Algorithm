@@ -1,5 +1,5 @@
-select dr_name, dr_id, mcdp_cd, date_format(hire_ymd,'%Y-%m-%d') as hire_ymd
+-- 코드를 입력하세요
+select dr_name, dr_id, mcdp_cd, date_format(hire_ymd,'%Y-%m-%d')
 from doctor
-where mcdp_cd = 'CS'
-or mcdp_cd = 'GS'
-order by HIRE_YMD desc, DR_NAME
+where mcdp_cd in ('CS', 'GS')
+order by hire_ymd desc, dr_name;
