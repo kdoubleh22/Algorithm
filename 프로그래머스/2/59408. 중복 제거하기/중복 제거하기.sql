@@ -1,3 +1,2 @@
--- 코드를 입력하세요
-SELECT count(distinct name)
-from animal_ins
+select count(distinct name) count
+from animal_ins;
