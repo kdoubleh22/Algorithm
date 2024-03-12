@@ -1,6 +1,7 @@
-select i.ANIMAL_ID, i.ANIMAL_TYPE, i.NAME
-from ANIMAL_INS as i
-join ANIMAL_OUTS as o on i.ANIMAL_ID = o.ANIMAL_ID
-where i.SEX_UPON_INTAKE not like '%Spayed%' and i.SEX_UPON_INTAKE not like '%Neutered%'
-and (o.SEX_UPON_OUTCOME like '%Spayed%' or o.SEX_UPON_OUTCOME like '%Neutered%')
-order by ANIMAL_ID
+select a.ANIMAL_ID, a.ANIMAL_TYPE, a.NAME
+from ANIMAL_INS a
+join ANIMAL_OUTS b on a.ANIMAL_ID = b.ANIMAL_ID
+where a.SEX_UPON_INTAKE like '%Intact%'
+and (b.SEX_UPON_OUTCOME like '%Spayed%' 
+     or b.SEX_UPON_OUTCOME like '%Neutered%')
+order by ANIMAL_ID;
