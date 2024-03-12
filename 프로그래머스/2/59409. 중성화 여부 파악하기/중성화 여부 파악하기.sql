@@ -1,8 +1,5 @@
-select animal_id, name, (case
-                             when (sex_upon_intake like '%Neutered%'
-                                   or sex_upon_intake like '%Spayed%')
-                             then 'O'
-                             else 'X'
-                         end)
-from animal_ins
-order by animal_id;
+select ANIMAL_ID, NAME, (case when SEX_UPON_INTAKE like '%Neutered%' then 'O'
+                         when SEX_UPON_INTAKE like '%Spayed%' then 'O'
+                         else 'X'
+                        end) 중성화
+from ANIMAL_INS;
