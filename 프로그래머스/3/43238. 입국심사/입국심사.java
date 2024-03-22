@@ -3,12 +3,13 @@ class Solution {
         long answer = 0;
         
         long left = 1;
-        long right = (long) 1e18;
+        long right = (long)1e18;
         
         while (left <= right) {
             long mid = left + (right - left) / 2;
+            System.out.println("mid:"+mid);
             
-            if (f(mid, times) >= n) {
+            if (f(mid, n, times)) {
                 answer = mid;
                 right = mid - 1;
             } else {
@@ -19,13 +20,13 @@ class Solution {
         return answer;
     }
     
-    long f(long mid, int[] times) {
-        long ret = 0;
+    boolean f(long mid, int n, int[] times) {
+        long sum = 0;
         
-        for (int time : times) {
-            ret += mid / time;
+        for (int i = 0; i < times.length; i++) {
+            sum += mid / times[i];
         }
         
-        return ret;
+        return sum >= n;
     }
 }
